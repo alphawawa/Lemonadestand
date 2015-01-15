@@ -42,6 +42,8 @@ class ViewController: UIViewController {
     var customers = ""
     var cashEarned = ""
     
+    var customerArray:[Customer] = []
+    
     // CONTAINERS
     
     var statusContainer : UIView!
@@ -265,6 +267,7 @@ class ViewController: UIViewController {
     
     func billMurrayButtonPressed (button : UIButton) {
         println("START THE DAY")
+        customerArray = Factory.createCustomers()
     }
     
     func setupContainerViews () {
