@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     var dollars = 10
     var lemons = 1
     var cubes = 1
+    var sales = 0
     
     var lemonsOrdered = 0
     var cubesOrdered = 0
@@ -266,8 +267,25 @@ class ViewController: UIViewController {
     // sellContainer button actions
     
     func billMurrayButtonPressed (button : UIButton) {
+
         println("START THE DAY")
+        
+        // create an array of random customers for the day
         customerArray = Factory.createCustomers()
+
+        // calculate sales
+        sales = SalesBrain.ComputeSales(customerArray, todaysTartRatio: lemonadeRatio)
+
+        // add todaysSales to the global variable 'dollars'
+        dollars = dollars + sales
+        
+        // reset the mix components back to zero
+        lemonsMixed = 0
+        cubesMixed = 0
+        
+        // update the labels to correspond to the updated global variables
+        updateMainView()
+        
     }
     
     func setupContainerViews () {

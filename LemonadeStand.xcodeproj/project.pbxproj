@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330C155D1A68CEF600BF5AF9 /* SalesBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330C155C1A68CEF600BF5AF9 /* SalesBrain.swift */; };
 		33D7D86B1A3276940010EA0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7D86A1A3276940010EA0B /* AppDelegate.swift */; };
 		33D7D86D1A3276940010EA0B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7D86C1A3276940010EA0B /* ViewController.swift */; };
 		33D7D8701A3276940010EA0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33D7D86E1A3276940010EA0B /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		330C155C1A68CEF600BF5AF9 /* SalesBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SalesBrain.swift; path = ../SalesBrain.swift; sourceTree = "<group>"; };
 		33D7D8651A3276940010EA0B /* LemonadeStand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LemonadeStand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33D7D8691A3276940010EA0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33D7D86A1A3276940010EA0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		33D7D8671A3276940010EA0B /* LemonadeStand */ = {
 			isa = PBXGroup;
 			children = (
+				330C155C1A68CEF600BF5AF9 /* SalesBrain.swift */,
 				33D7D86A1A3276940010EA0B /* AppDelegate.swift */,
 				33D7D86C1A3276940010EA0B /* ViewController.swift */,
 				33F29AA11A682E44005130D3 /* Customer.swift */,
@@ -220,6 +223,7 @@
 			files = (
 				33F29AA41A682FA6005130D3 /* Factory.swift in Sources */,
 				33F29AA21A682E44005130D3 /* Customer.swift in Sources */,
+				330C155D1A68CEF600BF5AF9 /* SalesBrain.swift in Sources */,
 				33D7D86D1A3276940010EA0B /* ViewController.swift in Sources */,
 				33D7D86B1A3276940010EA0B /* AppDelegate.swift in Sources */,
 			);
