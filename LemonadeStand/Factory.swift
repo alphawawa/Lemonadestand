@@ -14,7 +14,8 @@ class Factory {
     class func createCustomers() -> [Customer] {
         
         // create an array of type Customer into which we will populate with customers
-        var customerArray:[Customer] = []
+        var tempCustomerArray:[Customer] = []
+        
         // create a temporary variable of type Customer to help populate the array of customers
         var tempCustomer:Customer!
         
@@ -35,11 +36,11 @@ class Factory {
             tempCustomer = Customer(lemonadePreference: customerLemonadePreference)
 
             // append that customer to the array of Customers
-            customerArray.append(tempCustomer)
+            tempCustomerArray.append(tempCustomer)
         }
         
         // return an array of type Customer
-        return customerArray
+        return tempCustomerArray
         
     }
     
