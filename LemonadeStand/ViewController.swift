@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     var lemonsMixed = 0
     var cubesMixed = 0
     var lemonadeRatio = 0.0
+    var numberCustomers = 0
     
     var weather = ""
     var taste = ""
@@ -270,22 +271,37 @@ class ViewController: UIViewController {
 
         println("START THE DAY")
         
+        
+        if (cubesMixed == 0) || (lemonsMixed == 0) {
+            // send a message to mix some lemonade
+            showAlertWithText(header: "Incomplete Lemonade", message: "add lemons or ice")
+        } else {
+            
         // create an array of random customers for the day
         customerArray = Factory.createCustomers()
 
         // calculate sales
-        sales = SalesBrain.ComputeSales(customerArray, todaysTartRatio: lemonadeRatio)
-
+            var salesReportToday:SalesReport
+        salesReportToday  = SalesBrain.ComputeSales(customerArray, todaysTartRatio: lemonadeRatio)
+        sales = salesReportToday.sales
+        numberCustomers = salesReportToday.numberOfCustomers
+            
         // add todaysSales to the global variable 'dollars'
         dollars = dollars + sales
         
         // reset the mix components back to zero
         lemonsMixed = 0
         cubesMixed = 0
+            
+        // reset order back to zero
+        lemonsOrdered = 0
+        cubesOrdered = 0
         
         // update the labels to correspond to the updated global variables
         updateMainView()
-        
+
+        }
+
     }
     
     func setupContainerViews () {
@@ -333,7 +349,7 @@ class ViewController: UIViewController {
     func setupStatusContainer(containerView: UIView) {
 
         self.statusLabel = UILabel()
-        self.statusLabel.text = "2 - INVENTORY"
+        self.statusLabel.text = "INVENTORY"
         self.statusLabel.textColor = UIColor.grayColor()
         self.statusLabel.font = UIFont(name: "Arial", size: 16)
         self.statusLabel.sizeToFit()
@@ -437,7 +453,7 @@ class ViewController: UIViewController {
         containerView.addSubview(self.lemonMinusButton)
         
         self.buyLemonsLabel = UILabel()
-        self.buyLemonsLabel.text = "1 - ORDER"
+        self.buyLemonsLabel.text = "ORDER"
         self.buyLemonsLabel.textColor = UIColor.darkGrayColor()
         self.buyLemonsLabel.font = UIFont(name: "Arial", size: 16)
         self.buyLemonsLabel.sizeToFit()
@@ -521,7 +537,7 @@ class ViewController: UIViewController {
     func setupMixContainerView(containerView: UIView) {
 
         self.mixLabel = UILabel()
-        self.mixLabel.text = "3 - MIX"
+        self.mixLabel.text = "MIX"
         self.mixLabel.textColor = UIColor.darkGrayColor()
         self.mixLabel.font = UIFont(name: "Arial", size: 16)
         self.mixLabel.sizeToFit()
@@ -720,6 +736,10 @@ class ViewController: UIViewController {
         
         self.mixQuantityLemonsLabel.text = "\(lemonsMixed)"
         self.mixQuantityCubesLabel.text = "\(cubesMixed)"
+        
+        // sellContainer labels
+        self.sellCustomersLabel.text = "\(numberCustomers) customers"
+        self.sellCashLabel.text = "$\(sales)"
         
     }
     
