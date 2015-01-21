@@ -23,36 +23,41 @@ class SalesBrain {
         let kNeutralLimit : Double     = 2.0 / 3.0
         let kTartLimit : Double        = 3.0 / 3.0        // yes, I know it equals 1
         
+        if (todaysTartRatio < 1.0) {
+            todaysTaste = "sweet"
+        } else if (todaysTartRatio == 1.0) {
+            todaysTaste = "balanced"
+        } else if (todaysTartRatio > 1.0) {
+            todaysTaste = "tart"
+        }
+        
         for var i = 0; i < numberOfCustomers ; i++ {
             
             // traverse the array of customers, and if there is a taste match, increase sales
             if (todaysCustomers[i].lemonadePreference <= kSweetLimit) &&
-               (todaysTartRatio > 1.0) {
+               (todaysTaste == "tart") {
                 
                 todaysSales = todaysSales + 1
                 todaysDrinkers = todaysDrinkers + 1
-                todaysTaste = "tart"
                 println("Customer \(i) bought TART lemonade!")
                 
             } else if
                 (todaysCustomers[i].lemonadePreference <= kNeutralLimit) &&
                 (todaysCustomers[i].lemonadePreference > kSweetLimit) &&
-                (todaysTartRatio == 1.0) {
+                (todaysTaste == "balanced") {
                     
                 todaysSales = todaysSales + 1
                 todaysDrinkers = todaysDrinkers + 1
-                todaysTaste = "balanced"
                 println("Customer \(i) bought BALANCED lemonade!")
                     
             } else if
                 (todaysCustomers[i].lemonadePreference <= kTartLimit) &&
                 (todaysCustomers[i].lemonadePreference > kNeutralLimit) &&
-                (todaysTartRatio < 1.0) {
+                (todaysTaste == "sweet") {
                     
                 todaysSales = todaysSales + 1
                 todaysDrinkers = todaysDrinkers + 1
-                todaysTaste = "bland"
-                println("Customer \(i) bought BLAND lemonade!")
+                println("Customer \(i) bought SWEET lemonade!")
                     
             } else {
                 println("Customer \(i) did NOT buy the lemonade.")

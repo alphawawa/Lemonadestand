@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     let kMarginForStatusBar : CGFloat = 10.0     // allow room for status bar at top
     
     let kDefaultStringWidth = "XXX"
- 
+    
     // STATE VARIABLES
     
     var dollars = 10
@@ -89,6 +89,10 @@ class ViewController: UIViewController {
     var sellCustomersLabel : UILabel!
     var sellCashLabel : UILabel!
     
+    // UIImages
+    
+//    var sellWeatherImageView : UIImageView!
+    
     // BUTTONS
 
     // for purchaseContainer
@@ -105,8 +109,7 @@ class ViewController: UIViewController {
     
     // for sellContainer
     var billMurrayButton : UIButton!        // Groundhog Day reference
-    
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -197,9 +200,8 @@ class ViewController: UIViewController {
                 self.mixTartRatioLabel.text = "add ice cubes"
             } else {
                 lemonadeRatio = Double(lemonsMixed) / Double(cubesMixed)
-                self.mixTartRatioLabel.text = "LEMONADE RATIO = \(lemonadeRatio)"
+                self.mixTartRatioLabel.text = tellMeTheFlavor(lemonadeRatio)
             }
-
         updateMainView()
 
         }
@@ -219,7 +221,7 @@ class ViewController: UIViewController {
                 self.mixTartRatioLabel.text = "add ice cubes"
             } else {
                 lemonadeRatio = Double(lemonsMixed) / Double(cubesMixed)
-                self.mixTartRatioLabel.text = "LEMONADE RATIO = \(lemonadeRatio)"
+                self.mixTartRatioLabel.text = tellMeTheFlavor(lemonadeRatio)
             }
         updateMainView()
         }
@@ -239,7 +241,7 @@ class ViewController: UIViewController {
                 self.mixTartRatioLabel.text = "add ice cubes"
             } else {
                 lemonadeRatio = Double(lemonsMixed) / Double(cubesMixed)
-                self.mixTartRatioLabel.text = "LEMONADE RATIO = \(lemonadeRatio)"
+                self.mixTartRatioLabel.text = tellMeTheFlavor(lemonadeRatio)
             }
             updateMainView()
         }
@@ -259,11 +261,25 @@ class ViewController: UIViewController {
                 self.mixTartRatioLabel.text = "add ice cubes"
             } else {
                 lemonadeRatio = Double(lemonsMixed) / Double(cubesMixed)
-                self.mixTartRatioLabel.text = "LEMONADE RATIO = \(lemonadeRatio)"
+                self.mixTartRatioLabel.text = tellMeTheFlavor(lemonadeRatio)
             }
             updateMainView()
         }
         
+    }
+    
+    func tellMeTheFlavor(ratio : Double) -> String {
+
+        var flavor: String = ""
+
+            if (ratio > 1.0 ) {
+                flavor = "tart"
+            } else if (ratio == 1.0) {
+                flavor = "balanced"
+            } else if (ratio < 1.0) {
+                flavor = "sweet"
+            }
+        return flavor
     }
     
     // sellContainer button actions
@@ -307,17 +323,19 @@ class ViewController: UIViewController {
         // update yesterdays's sales labels (sellContainer labels)
         self.sellCustomersLabel.text = "\(numberCustomers) customers"
         self.sellCashLabel.text = "$\(sales)"
-//        self.sellTasteLabel.text = "\(lemonadeRatio)"
         self.sellTasteLabel.text = salesReportToday.lemonadeTaste
             
             
             if (weatherValue <= 3) {
                 self.sellWeatherLabel.text = "sunny"
+//                self.sellWeatherImageView.image = UIImage(named: "Warm")
             } else if
                 (weatherValue <= 10) && (weatherValue > 7) {
                 self.sellWeatherLabel.text = "cold"
+//                self.sellWeatherImageView.image = UIImage(named: "Cold")
             } else {
                 self.sellWeatherLabel.text = "mild"
+//                self.sellWeatherImageView.image = UIImage(named: "Mild")
             }
 
         }
@@ -451,7 +469,6 @@ class ViewController: UIViewController {
         self.lemonPlusButton.center = CGPoint(
             x: containerView.frame.width * kEighth,
             y: containerView.frame.height * kThird)
-//        self.lemonPlusButton.backgroundColor = UIColor.lightGrayColor()
         self.lemonPlusButton.addTarget(self, action: "lemonPlusButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         containerView.addSubview(self.lemonPlusButton)
         
@@ -468,7 +485,6 @@ class ViewController: UIViewController {
         self.lemonMinusButton.center = CGPoint(
             x: containerView.frame.width * kEighth,
             y: containerView.frame.height * kThird * 2)
-//        self.lemonMinusButton.backgroundColor = UIColor.grayColor()
         self.lemonMinusButton.addTarget(self, action: "lemonMinusButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         containerView.addSubview(self.lemonMinusButton)
         
@@ -512,7 +528,6 @@ class ViewController: UIViewController {
         self.cubesPlusButton.center = CGPoint(
             x: containerView.frame.width * kEighth * 7,
             y: containerView.frame.height * kThird)
-//        self.cubesPlusButton.backgroundColor = UIColor.lightGrayColor()
         self.cubesPlusButton.addTarget(self, action: "cubesPlusButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         containerView.addSubview(self.cubesPlusButton)
         
@@ -529,7 +544,6 @@ class ViewController: UIViewController {
         self.cubesMinusButton.center = CGPoint(
             x: containerView.frame.width * kEighth * 7,
             y: containerView.frame.height * kThird * 2)
-//        self.cubesMinusButton.backgroundColor = UIColor.blueColor()
         self.cubesMinusButton.addTarget(self, action: "cubesMinusButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         containerView.addSubview(self.cubesMinusButton)
  
@@ -669,9 +683,9 @@ class ViewController: UIViewController {
         self.mixTartRatioLabel = UILabel()
         self.mixTartRatioLabel.text = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"     // hack
         self.mixTartRatioLabel.textColor = UIColor.darkGrayColor()
-        self.mixTartRatioLabel.font = UIFont(name: "Arial", size: 16)
+        self.mixTartRatioLabel.font = UIFont(name: "Arial", size: 12)
         self.mixTartRatioLabel.sizeToFit()
-        self.mixTartRatioLabel.text = "flavor"
+        self.mixTartRatioLabel.text = "FLAVOR"
         self.mixTartRatioLabel.center = CGPoint(x: containerView.frame.width * kEighth * 4, y: containerView.frame.height * kEighth * kFourth * 29)
         self.mixTartRatioLabel.textAlignment = NSTextAlignment.Center
         containerView.addSubview(self.mixTartRatioLabel)
@@ -697,6 +711,10 @@ class ViewController: UIViewController {
         self.sellWeatherLabel.center = CGPoint(x: containerView.frame.width * kEighth, y: containerView.frame.height * kEighth * 3)
         self.sellWeatherLabel.textAlignment = NSTextAlignment.Center
         containerView.addSubview(self.sellWeatherLabel)
+        
+//        self.sellWeatherImageView = UIImageView()
+//        self.sellWeatherImageView.frame = CGRect(x: 10, y: 10, width: 50, height: 50)
+//        containerView.addSubview(self.sellWeatherImageView)
         
         self.sellTasteLabel = UILabel()
         self.sellTasteLabel.text = "XXXXXXXXXXXXXXXXXXXXXXXXX"
