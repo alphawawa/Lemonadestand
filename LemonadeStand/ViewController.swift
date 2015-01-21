@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     var lemons = 1
     var cubes = 1
     var sales = 0
+    var weatherValue = 0
     
     var lemonsOrdered = 0
     var cubesOrdered = 0
@@ -277,11 +278,14 @@ class ViewController: UIViewController {
             showAlertWithText(header: "Incomplete Lemonade", message: "add lemons or ice")
         } else {
             
+        // generate the weather score
+        weatherValue = Factory.createWeather()
+            
         // create an array of random customers for the day
-        customerArray = Factory.createCustomers()
+        customerArray = Factory.createCustomers(weatherValue)
 
         // calculate sales
-            var salesReportToday:SalesReport
+        var salesReportToday:SalesReport
         salesReportToday  = SalesBrain.ComputeSales(customerArray, todaysTartRatio: lemonadeRatio)
         sales = salesReportToday.sales
         numberCustomers = salesReportToday.numberOfCustomers
@@ -299,6 +303,22 @@ class ViewController: UIViewController {
         
         // update the labels to correspond to the updated global variables
         updateMainView()
+            
+        // update yesterdays's sales labels (sellContainer labels)
+        self.sellCustomersLabel.text = "\(numberCustomers) customers"
+        self.sellCashLabel.text = "$\(sales)"
+//        self.sellTasteLabel.text = "\(lemonadeRatio)"
+        self.sellTasteLabel.text = salesReportToday.lemonadeTaste
+            
+            
+            if (weatherValue <= 3) {
+                self.sellWeatherLabel.text = "sunny"
+            } else if
+                (weatherValue <= 10) && (weatherValue > 7) {
+                self.sellWeatherLabel.text = "cold"
+            } else {
+                self.sellWeatherLabel.text = "mild"
+            }
 
         }
 
@@ -674,7 +694,7 @@ class ViewController: UIViewController {
         self.sellWeatherLabel.font = UIFont(name: "Arial", size: 12)
         self.sellWeatherLabel.sizeToFit()
         self.sellWeatherLabel.text = "weather"
-        self.sellWeatherLabel.center = CGPoint(x: containerView.frame.width * kThird, y: containerView.frame.height * kEighth * kHalf * 5)
+        self.sellWeatherLabel.center = CGPoint(x: containerView.frame.width * kEighth, y: containerView.frame.height * kEighth * 3)
         self.sellWeatherLabel.textAlignment = NSTextAlignment.Center
         containerView.addSubview(self.sellWeatherLabel)
         
@@ -684,7 +704,7 @@ class ViewController: UIViewController {
         self.sellTasteLabel.font = UIFont(name: "Arial", size: 12)
         self.sellTasteLabel.sizeToFit()
         self.sellTasteLabel.text = "flavor"
-        self.sellTasteLabel.center = CGPoint(x: containerView.frame.width * kThird, y: containerView.frame.height * kEighth * kHalf * 7)
+        self.sellTasteLabel.center = CGPoint(x: containerView.frame.width * kEighth * 3, y: containerView.frame.height * kEighth * 3)
         self.sellTasteLabel.textAlignment = NSTextAlignment.Center
         containerView.addSubview(self.sellTasteLabel)
         
@@ -694,7 +714,7 @@ class ViewController: UIViewController {
         self.sellCustomersLabel.font = UIFont(name: "Arial", size: 12)
         self.sellCustomersLabel.sizeToFit()
         self.sellCustomersLabel.text = "customers"
-        self.sellCustomersLabel.center = CGPoint(x: containerView.frame.width * kThird * 2, y: containerView.frame.height * kEighth * kHalf * 5)
+        self.sellCustomersLabel.center = CGPoint(x: containerView.frame.width * kEighth * 5, y: containerView.frame.height * kEighth * 3)
         self.sellCustomersLabel.textAlignment = NSTextAlignment.Center
         containerView.addSubview(self.sellCustomersLabel)
 
@@ -704,7 +724,7 @@ class ViewController: UIViewController {
         self.sellCashLabel.font = UIFont(name: "Arial", size: 12)
         self.sellCashLabel.sizeToFit()
         self.sellCashLabel.text = "bucks"
-        self.sellCashLabel.center = CGPoint(x: containerView.frame.width * kThird * 2 , y: containerView.frame.height * kEighth * kHalf * 7)
+        self.sellCashLabel.center = CGPoint(x: containerView.frame.width * kEighth * 7, y: containerView.frame.height * kEighth * 3)
         self.sellCashLabel.textAlignment = NSTextAlignment.Center
         containerView.addSubview(self.sellCashLabel)
 
@@ -736,10 +756,6 @@ class ViewController: UIViewController {
         
         self.mixQuantityLemonsLabel.text = "\(lemonsMixed)"
         self.mixQuantityCubesLabel.text = "\(cubesMixed)"
-        
-        // sellContainer labels
-        self.sellCustomersLabel.text = "\(numberCustomers) customers"
-        self.sellCashLabel.text = "$\(sales)"
         
     }
     

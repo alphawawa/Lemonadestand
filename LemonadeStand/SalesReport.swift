@@ -12,4 +12,5 @@ import UIKit
 struct SalesReport {
     var sales = 0
     var numberOfCustomers = 0
+    var lemonadeTaste = ""
 }

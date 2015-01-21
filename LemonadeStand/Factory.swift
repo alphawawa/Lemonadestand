@@ -11,7 +11,7 @@ import UIKit
 
 class Factory {
     
-    class func createCustomers() -> [Customer] {
+    class func createCustomers(weather : Int) -> [Customer] {
         
         // create an array of type Customer into which we will populate with customers
         var tempCustomerArray:[Customer] = []
@@ -24,6 +24,23 @@ class Factory {
         
         // generate a random number in the range of 0 to 10 inclusive
         var numberCustomers = Int(arc4random_uniform(UInt32(11)))
+        
+        // add or subtract customers depending on the weather
+        if (weather <= 3) {
+            numberCustomers = numberCustomers + 4
+            println("Sunny!  4 extra customers")
+        } else if
+            (weather <= 10) && (weather > 7) {
+            numberCustomers = numberCustomers - 3
+            println("COLD!  3 less customers")
+        } else {
+            println("Normal weather so no customer change")
+        }
+
+        // make sure numberCustomers is not negative
+        if (numberCustomers < 0) {
+            numberCustomers = 0
+        }
         
         // generate a random number of customers, and give each customer a random taste preference
         for var i = 0 ; i <= numberCustomers ; i++ {
@@ -44,5 +61,13 @@ class Factory {
         
     }
     
+    class func createWeather() -> Int {
+        
+        var weatherNumber:Int!
+        
+        weatherNumber = Int(arc4random_uniform(UInt32(11)))
+        
+        return weatherNumber
+    }
     
 }
